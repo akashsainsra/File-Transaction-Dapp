@@ -1,4 +1,4 @@
-pragma solidity 0.4.20;
+pragma solidity 0.4.24;
 
 contract Hashes{
 
@@ -13,18 +13,20 @@ contract Hashes{
 		string hash;
 	}
 
+	mapping(address => client) public clientInfo;
+
 	function() public payable {}
 
-	func Hashes(uint256 _mineth) public {
+	function Hashes(uint256 _mineth) public {
 		owner = msg.sender;
 		if(_mineth != 0) min_eth = _mineth;
 	}
 
-	func kill() public {
+	function kill() public {
 		if(msg.sender == owner) selfdestruct(owner);
 	}
 
-	func upload(string hash_str ) public payable {
+	function upload(string hash_str ) public payable {
 		require(!checkClientExists(msg.sender));
 		require(msg.value >= min_eth);
 
@@ -34,7 +36,7 @@ contract Hashes{
 		total_eth += msg.value;
 	}
 
-	func checkClientExists(address client) public constant returns(bool){
+	function checkClientExists(address client) public constant returns(bool){
 		for(uint256 i = 0; i < clients.length; i++){
 			if(clients[i] == client) return true;
 		}
